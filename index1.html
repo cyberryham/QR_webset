@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Code Generator</title>
+    <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            text-align: center;
+            background-color: #f4f4f4;
+        }
+        input {
+            padding: 10px;
+            margin: 10px;
+            font-size: 16px;
+            width: 80%;
+            max-width: 400px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        #qrcodeCanvas {
+            margin-top: 20px;
+        }
+        #downloadBtn {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #2196F3;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            display: inline-block;
+        }
+        #downloadBtn:hover {
+            background-color: #1976D2;
+        }
+        .hamz{
+                display: flex;
+                
+        }
+        .hamz img{
+                width: 30px;
+                border-radius: 500px;
+        }
+        .hamz p{
+                margin: 10px;
+        }
+    </style>
+</head>
+<body>
+        <div class="hamz">
+                <img src="https://i.ibb.co.com/WcNDZmh/1.jpg">
+        <p><u>hamza..</u></p>
+        </div>
+    <h1>QR Code Generator</h1>
+    <p>Masukkan URL untuk membuat QR Code</p>
+    <input type="text" id="url" placeholder="Masukkan URL" required>
+    <button onclick="generateQRCode()">Buat QR Code</button>
+    <canvas id="qrcodeCanvas"></canvas>
+    <a id="downloadBtn" style="display: none;" download="qrcode.png">Download QR Code</a>
+
+    <script>
+        function generateQRCode() {
+            var url = document.getElementById("url").value;
+            if (url) {
+                var canvas = document.getElementById("qrcodeCanvas");
+                QRCode.toCanvas(canvas, url, function (error) {
+                    if (error) {
+                        console.error(error);
+                    } else {
+                        var downloadBtn = document.getElementById("downloadBtn");
+                        var dataURL = canvas.toDataURL("image/png");
+                        downloadBtn.href = dataURL;
+                        downloadBtn.style.display = "inline-block";
+                    }
+                });
+            } else {
+                alert("Mohon masukkan URL");
+            }
+        }
+    </script>
+</body>
+</html>
